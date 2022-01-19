@@ -5,10 +5,9 @@ import React from "react";
 import { Text } from "@chakra-ui/react";
 import { useState } from "react/cjs/react.development";
 
-const SIZE = 40;
-export const MarkerItem = ({ location, name }) => {
+export const MarkerItem = ({ location, name, discriminator }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const SIZE = 40;
   return (
     <>
       <Marker
@@ -21,13 +20,18 @@ export const MarkerItem = ({ location, name }) => {
       {isOpen && (
         <Popup
           tipSize={5}
-          anchor="top"
+          anchor="bottom"
           longitude={location.longitude}
           latitude={location.latitude}
-          closeOnClick={false}
-          onClose={setIsOpen}
+          closeOnClick={true}
+          onClose={() => setIsOpen(false)}
+          altitude={10}
         >
-          <Text color="black"> {name}</Text>
+          <>
+            <Text zIndex={120} color="black">
+              {discriminator}
+            </Text>
+          </>
         </Popup>
       )}
     </>
