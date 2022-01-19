@@ -1,53 +1,79 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { Map, Wrapper } from "./styled";
-import mapboxgl, { Popup } from "mapbox-gl";
+import MapGL, {
+  FullscreenControl,
+  GeolocateControl,
+  NavigationControl,
+  ScaleControl,
+} from "react-map-gl";
+import React, { useEffect } from "react";
 import { mapsStyle, mapsToken } from "../../constans/mapsApi";
-import { useEffect, useRef } from "react";
 
-import React from "react";
+import { MarkerItem } from "../MarkerItem";
 import axios from "axios";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
-mapboxgl.accessToken = mapsToken;
+const MAPBOX_TOKEN = mapsToken;
 
+const geolocateStyle = {
+  top: 0,
+  left: 0,
+  padding: "10px",
+};
+
+const fullscreenControlStyle = {
+  top: 36,
+  left: 0,
+  padding: "10px",
+};
+
+const navStyle = {
+  top: 72,
+  left: 0,
+  padding: "10px",
+};
+
+const scaleControlStyle = {
+  bottom: 36,
+  left: 0,
+  padding: "10px",
+};
 export const MapWrapper = () => {
-  const [items, setItems] = useState("");
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const marker = new mapboxgl.Marker({
-    color: "#c4c4c4",
+  const [isOpen, setIsOpen] = useState(false);
+  const [viewport, setViewport] = useState({
+    latitude: 52,
+    longitude: 20,
+    zoom: 4,
+    bearing: 0,
+    pitch: 0,
   });
+  const [apiItems, setApiItems] = useState([]);
 
-  const popup = new mapboxgl.Popup();
   useEffect(() => {
-    if (map.current) return;
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: mapsStyle.dark,
-      center: [20, 52],
-      minZoom: 3,
-      zoom: 5,
-      hash: true,
-    });
     axios
       .get(`https://dev.vozilla.pl/api-client-portal/map?objectType=POI`)
       .then((res) => {
-        setItems(res.data.objects);
-        res?.data.objects.map((item) => {
-          new mapboxgl.Marker({
-            color: "#c4c4c4",
-          })
-            .setLngLat([item.location.longitude, item.location.latitude])
-            .setPopup(new mapboxgl.Popup().setHTML(<div>helos</div>))
-            .addTo(map.current);
-        });
+        console.log(res.data.objects);
+        setApiItems(res.data.objects);
       });
-  });
+  }, []);
 
   return (
-    <Wrapper>
-      <Map ref={mapContainer} className="map-container" />
-    </Wrapper>
+    <MapGL
+      {...viewport}
+      width="100vw"
+      height="100vh"
+      mapStyle={mapsStyle.dark}
+      onViewportChange={setViewport}
+      mapboxApiAccessToken={MAPBOX_TOKEN}
+    >
+      {apiItems?.map((item) => (
+        <MarkerItem isOpen={isOpen} setIsOpen={setIsOpen} {...item} />
+      ))}
+      <GeolocateControl style={geolocateStyle} />
+      <FullscreenControl style={fullscreenControlStyle} />
+      <NavigationControl style={navStyle} />
+      <ScaleControl style={scaleControlStyle} />
+    </MapGL>
   );
 };
