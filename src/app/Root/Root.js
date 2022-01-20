@@ -32,6 +32,7 @@ export const Root = () => {
         isDarkTheme={isDarkTheme}
         setIsDarkTheme={setIsDarkTheme}
         apiItems={apiItems}
+        searchObject={searchObject}
       />
       <MapWrapper apiItems={apiItems} isDarkTheme={isDarkTheme} />
     </ChakraProvider>

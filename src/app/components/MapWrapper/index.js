@@ -1,3 +1,5 @@
+import "mapbox-gl/dist/mapbox-gl.css";
+
 import MapGL, {
   FullscreenControl,
   GeolocateControl,
@@ -12,6 +14,7 @@ import {
   scaleControlStyle,
 } from "../../constans/mapControls";
 
+import { InfoBox } from "../InfoBox";
 import { MAPBOX_TOKEN } from "../../constans/mapApi";
 import { MarkerItem } from "../MarkerItem";
 import { Wrapper } from "./styled";
@@ -21,6 +24,7 @@ import { useState } from "react";
 
 export const MapWrapper = ({ apiItems, isDarkTheme }) => {
   const [viewport, setViewport] = useState(mapInitial);
+  const [boxId, setBoxId] = useState("");
 
   return (
     <Wrapper>
@@ -33,8 +37,26 @@ export const MapWrapper = ({ apiItems, isDarkTheme }) => {
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
         {useMemo(
-          () => apiItems?.map((item) => <MarkerItem key={item.id} {...item} />),
-          [apiItems]
+          () =>
+            apiItems?.map((item) => (
+              <MarkerItem
+                isDarkTheme={isDarkTheme}
+                setBoxId={setBoxId}
+                key={item.id}
+                {...item}
+              />
+            )),
+          [apiItems, isDarkTheme]
+        )}
+        {useMemo(
+          () =>
+            boxId && (
+              <InfoBox
+                setBoxId={setBoxId}
+                apiItems={apiItems.filter((item) => item.id.includes(boxId))}
+              />
+            ),
+          [boxId]
         )}
         <GeolocateControl style={geolocateStyle} />
         <FullscreenControl style={fullscreenControlStyle} />

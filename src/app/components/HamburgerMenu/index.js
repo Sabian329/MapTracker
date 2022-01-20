@@ -1,8 +1,23 @@
-import { Box, Button, Collapse, Switch, useDisclosure } from "@chakra-ui/react";
-import { IconWrapper, Menu, Results, ThemeSwitch, Wrapper } from "./styled";
+import {
+  Button,
+  Collapse,
+  Heading,
+  Switch,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { CheckIcon, SearchIcon } from "@chakra-ui/icons";
+import {
+  IconWrapper,
+  Menu,
+  SearchButtons,
+  ThemeSwitch,
+  Wrapper,
+} from "./styled";
 
 import { Fade as Icon } from "hamburger-react";
 import React from "react";
+import { btnConfig } from "../../constans/config";
 import { menuVariants } from "../../theme/animationsVariants";
 import { motion } from "framer-motion";
 
@@ -13,60 +28,56 @@ export const HamburgerMenu = ({
   isDarkTheme,
   setIsDarkTheme,
   apiItems,
+  searchObject,
 }) => {
   const { isOpen, onToggle } = useDisclosure();
   return (
-    <>
-      <Wrapper>
-        <IconWrapper>
-          <Icon toggled={isMenuOpen} toggle={setIsMenuOpen} direction="left" />
-        </IconWrapper>
-        <motion.div
-          animate={isMenuOpen ? "open" : "closed"}
-          variants={menuVariants}
-        >
-          <Menu>
-            <ThemeSwitch>
-              <p>{isDarkTheme ? "Light" : "Dark"}</p>
-              <Switch onChange={() => setIsDarkTheme(!isDarkTheme)} size="lg" />
-            </ThemeSwitch>
-            <Button color="black" onClick={onToggle}>
+    <Wrapper>
+      <IconWrapper>
+        <Icon
+          color={isDarkTheme ? "#FFF" : "#000"}
+          toggled={isMenuOpen}
+          toggle={setIsMenuOpen}
+          direction="left"
+        />
+      </IconWrapper>
+      <motion.div
+        animate={isMenuOpen ? "open" : "closed"}
+        variants={menuVariants}
+      >
+        <Menu>
+          <Text>results count</Text>
+          <Heading>{apiItems.length}</Heading>
+          <ThemeSwitch>
+            <p>{isDarkTheme ? "Light Theme" : "Dark Theme"}</p>
+            <Switch onChange={() => setIsDarkTheme(!isDarkTheme)} size="lg" />
+          </ThemeSwitch>
+          <SearchButtons>
+            <Button
+              rightIcon={<SearchIcon />}
+              colorScheme="blue"
+              color="black"
+              onClick={onToggle}
+            >
               Search
             </Button>
             <Collapse in={isOpen} animateOpacity>
-              <Box
-                p="40px"
-                color="black"
-                mt="4"
-                bg="teal.500"
-                rounded="md"
-                shadow="md"
-              >
-                <ul>
-                  <li>
-                    <Button onClick={() => setSearchObject("VEHICLE")}>
-                      Cars
+              <ul>
+                {btnConfig.map((btn) => (
+                  <li key={btn.name}>
+                    <Button
+                      rightIcon={searchObject === btn.endpoint && <CheckIcon />}
+                      onClick={() => setSearchObject(btn.endpoint)}
+                    >
+                      {btn.name}
                     </Button>
                   </li>
-                  <li>
-                    <Button onClick={() => setSearchObject("PARKING")}>
-                      Parkings
-                    </Button>
-                  </li>
-                  <li>
-                    <Button onClick={() => setSearchObject("POI")}>Poi</Button>
-                  </li>
-                </ul>
-              </Box>
+                ))}
+              </ul>
             </Collapse>
-            <Results>
-              {apiItems?.map((item) => (
-                <p>{item.name}</p>
-              ))}
-            </Results>
-          </Menu>
-        </motion.div>
-      </Wrapper>
-    </>
+          </SearchButtons>
+        </Menu>
+      </motion.div>
+    </Wrapper>
   );
 };

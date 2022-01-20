@@ -1,39 +1,31 @@
-import { Marker, Popup } from "react-map-gl";
-
+import { Marker } from "react-map-gl";
 import { MarkerSvg } from "../../../assets/svg/MarkerSvg";
 import React from "react";
-import { Text } from "@chakra-ui/react";
 import { useState } from "react/cjs/react.development";
 
-export const MarkerItem = ({ location, name, discriminator }) => {
+export const MarkerItem = ({
+  location,
+  discriminator,
+  isDarkTheme,
+  setBoxId,
+  id,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const SIZE = 40;
+  const SIZE = 50;
   return (
     <>
       <Marker
         longitude={location.longitude}
         latitude={location.latitude}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setBoxId(id)}
       >
-        <MarkerSvg SIZE={SIZE} />
+        <MarkerSvg
+          SIZE={SIZE}
+          name={discriminator}
+          isDarkTheme={isDarkTheme}
+          isOpen={isOpen}
+        />
       </Marker>
-      {isOpen && (
-        <Popup
-          tipSize={5}
-          anchor="bottom"
-          longitude={location.longitude}
-          latitude={location.latitude}
-          closeOnClick={true}
-          onClose={() => setIsOpen(false)}
-          altitude={10}
-        >
-          <>
-            <Text zIndex={120} color="black">
-              {discriminator}
-            </Text>
-          </>
-        </Popup>
-      )}
     </>
   );
 };

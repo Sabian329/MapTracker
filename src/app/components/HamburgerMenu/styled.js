@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Menu = styled.nav`
-  background-color: #c4c4c430;
+  background-color: rgba(0, 0, 0, 0.87);
   height: 100vh;
   width: 20rem;
   padding: 5rem 1rem 0 1rem;
@@ -21,7 +21,6 @@ export const IconWrapper = styled.div`
   top: 0;
   z-index: 120;
   right: 0;
-  background-color: black;
 `;
 export const ThemeSwitch = styled.div`
   display: flex;
@@ -32,14 +31,28 @@ export const ThemeSwitch = styled.div`
     margin: 0.5rem;
   }
 `;
-export const Results = styled.div`
-  background-color: black;
-  margin: 1rem;
-  height: 20rem;
-  width: 20rem;
-  padding: 1rem;
+export const SearchButtons = styled.div`
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  align-items: center;
+  margin-top: 1rem;
+  button {
+    color: #fff;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    background-color: rgba(225, 225, 225, 0.5);
+    border-radius: 10px;
+    button {
+      text-align: left;
+      background: none;
+      width: 10rem;
+    }
+  }
+  li {
+    list-style: none;
+  }
 `;
