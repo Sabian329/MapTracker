@@ -1,5 +1,13 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 
+import {
+  MAPBOX_TOKEN,
+  fullscreenControlStyle,
+  geolocateStyle,
+  mapInitial,
+  navStyle,
+  scaleControlStyle,
+} from "../../constans/apiMapConfig";
 import MapGL, {
   FullscreenControl,
   GeolocateControl,
@@ -7,18 +15,10 @@ import MapGL, {
   ScaleControl,
 } from "react-map-gl";
 import React, { useMemo } from "react";
-import {
-  fullscreenControlStyle,
-  geolocateStyle,
-  navStyle,
-  scaleControlStyle,
-} from "../../constans/mapControls";
 
 import { InfoBox } from "../InfoBox";
-import { MAPBOX_TOKEN } from "../../constans/mapApi";
 import { MarkerItem } from "../MarkerItem";
 import { Wrapper } from "./styled";
-import { mapInitial } from "../../constans/mapInitial";
 import { mapsStyle } from "../../theme/mapTheme";
 import { useState } from "react";
 
@@ -42,11 +42,12 @@ export const MapWrapper = ({ apiItems, isDarkTheme }) => {
               <MarkerItem
                 isDarkTheme={isDarkTheme}
                 setBoxId={setBoxId}
+                boxId={boxId}
                 key={item.id}
                 {...item}
               />
             )),
-          [apiItems, isDarkTheme]
+          [apiItems, isDarkTheme, boxId]
         )}
         {useMemo(
           () =>
@@ -58,8 +59,6 @@ export const MapWrapper = ({ apiItems, isDarkTheme }) => {
             ),
           [boxId]
         )}
-        <GeolocateControl style={geolocateStyle} />
-        <FullscreenControl style={fullscreenControlStyle} />
         <NavigationControl style={navStyle} />
         <ScaleControl style={scaleControlStyle} />
       </MapGL>

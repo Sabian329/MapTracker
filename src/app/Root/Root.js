@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { HamburgerMenu } from "../components/HamburgerMenu";
 import { MapWrapper } from "../components/MapWrapper";
-import { URL } from "../constans/dataApi";
+import { URL } from "../constans/apiMapConfig";
+import { Wrapper } from "./styled";
 import axios from "axios";
 import { theme } from "../theme/chakraTheme";
 
@@ -11,7 +12,7 @@ export const Root = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [apiItems, setApiItems] = useState([]);
-  const [searchObject, setSearchObject] = useState("POI,VEHICLE,PARKING");
+  const [searchObject, setSearchObject] = useState("PARKING");
 
   useEffect(() => {
     axios
@@ -25,16 +26,18 @@ export const Root = () => {
   }, [searchObject]);
   return (
     <ChakraProvider theme={theme}>
-      <HamburgerMenu
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        setSearchObject={setSearchObject}
-        isDarkTheme={isDarkTheme}
-        setIsDarkTheme={setIsDarkTheme}
-        apiItems={apiItems}
-        searchObject={searchObject}
-      />
-      <MapWrapper apiItems={apiItems} isDarkTheme={isDarkTheme} />
+      <Wrapper>
+        <HamburgerMenu
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          setSearchObject={setSearchObject}
+          isDarkTheme={isDarkTheme}
+          setIsDarkTheme={setIsDarkTheme}
+          apiItems={apiItems}
+          searchObject={searchObject}
+        />
+        <MapWrapper apiItems={apiItems} isDarkTheme={isDarkTheme} />
+      </Wrapper>
     </ChakraProvider>
   );
 };

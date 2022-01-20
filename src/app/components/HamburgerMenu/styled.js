@@ -9,12 +9,13 @@ export const Wrapper = styled.div`
 
 export const Menu = styled.nav`
   background-color: rgba(0, 0, 0, 0.87);
-  height: 100vh;
   width: 20rem;
-  padding: 5rem 1rem 0 1rem;
+  padding: 4rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2rem;
+  border-radius: 10px 0 10px 10px;
 `;
 export const IconWrapper = styled.div`
   position: absolute;
@@ -22,34 +23,43 @@ export const IconWrapper = styled.div`
   z-index: 120;
   right: 0;
 `;
-export const ThemeSwitch = styled.div`
+export const ResultsLabel = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  h2 {
+    font-size: 3rem;
+  }
   p {
-    margin: 0.5rem;
+    font-size: 1.5rem;
   }
 `;
-export const SearchButtons = styled.div`
+export const ThemeSwitch = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
+`;
+export const SearchButtons = styled.div`
   margin-top: 1rem;
+  width: 15rem;
+  div {
+    width: 100%;
+  }
   button {
     color: #fff;
+    width: 100%;
   }
   ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-top: 1rem;
     background-color: rgba(225, 225, 225, 0.5);
     border-radius: 10px;
+    width: 100%;
     button {
-      text-align: left;
       background: none;
-      width: 10rem;
+      display: flex;
+      justify-content: space-between;
     }
   }
   li {

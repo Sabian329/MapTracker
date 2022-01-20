@@ -6,10 +6,11 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { CheckIcon, SearchIcon } from "@chakra-ui/icons";
+import { CheckIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import {
   IconWrapper,
   Menu,
+  ResultsLabel,
   SearchButtons,
   ThemeSwitch,
   Wrapper,
@@ -17,7 +18,7 @@ import {
 
 import { Fade as Icon } from "hamburger-react";
 import React from "react";
-import { btnConfig } from "../../constans/config";
+import { btnConfig } from "../../constans/mapObjectsConfig";
 import { menuVariants } from "../../theme/animationsVariants";
 import { motion } from "framer-motion";
 
@@ -31,6 +32,7 @@ export const HamburgerMenu = ({
   searchObject,
 }) => {
   const { isOpen, onToggle } = useDisclosure();
+
   return (
     <Wrapper>
       <IconWrapper>
@@ -46,11 +48,15 @@ export const HamburgerMenu = ({
         variants={menuVariants}
       >
         <Menu>
-          <Text>results count</Text>
-          <Heading>{apiItems.length}</Heading>
+          <ResultsLabel>
+            <Text>results</Text>
+            <Heading>{apiItems.length}</Heading>
+          </ResultsLabel>
+
           <ThemeSwitch>
-            <p>{isDarkTheme ? "Light Theme" : "Dark Theme"}</p>
-            <Switch onChange={() => setIsDarkTheme(!isDarkTheme)} size="lg" />
+            <MoonIcon />
+            <Switch onChange={() => setIsDarkTheme(!isDarkTheme)} size="md" />
+            <SunIcon />
           </ThemeSwitch>
           <SearchButtons>
             <Button
@@ -65,11 +71,9 @@ export const HamburgerMenu = ({
               <ul>
                 {btnConfig.map((btn) => (
                   <li key={btn.name}>
-                    <Button
-                      rightIcon={searchObject === btn.endpoint && <CheckIcon />}
-                      onClick={() => setSearchObject(btn.endpoint)}
-                    >
+                    <Button onClick={() => setSearchObject(btn.endpoint)}>
                       {btn.name}
+                      {searchObject === btn.endpoint && <CheckIcon />}
                     </Button>
                   </li>
                 ))}

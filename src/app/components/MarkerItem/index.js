@@ -1,6 +1,8 @@
+import React, { useEffect } from "react";
+
 import { Marker } from "react-map-gl";
 import { MarkerSvg } from "../../../assets/svg/MarkerSvg";
-import React from "react";
+import { SIZE } from "../../constans/apiMapConfig";
 import { useState } from "react/cjs/react.development";
 
 export const MarkerItem = ({
@@ -9,19 +11,28 @@ export const MarkerItem = ({
   isDarkTheme,
   setBoxId,
   id,
+  boxId,
+  name,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const SIZE = 50;
+
+  useEffect(() => boxId !== id && setIsOpen(false), [boxId]);
+  const toggleMarker = () => {
+    setBoxId(id);
+    setIsOpen(true);
+  };
+
   return (
     <>
       <Marker
         longitude={location.longitude}
         latitude={location.latitude}
-        onClick={() => setBoxId(id)}
+        onClick={() => toggleMarker()}
       >
         <MarkerSvg
           SIZE={SIZE}
-          name={discriminator}
+          disc={discriminator}
+          name={name}
           isDarkTheme={isDarkTheme}
           isOpen={isOpen}
         />

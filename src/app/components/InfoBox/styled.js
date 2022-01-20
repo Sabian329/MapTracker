@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Pin = styled.div`
-  position: fixed;
+  position: absolute;
   left: 1rem;
   bottom: 10rem;
   background-color: rgba(0, 0, 0, 0.8);
@@ -19,5 +19,6 @@ export const Pin = styled.div`
   h2 {
     font-weight: 300;
     font-size: 1rem;
+    text-align: center;
   }
 `;
