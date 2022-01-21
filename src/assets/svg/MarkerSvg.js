@@ -6,7 +6,7 @@ import {
 import React from "react";
 import { Tooltip } from "@chakra-ui/react";
 
-export const MarkerSvg = ({ SIZE, name, disc, isOpen, isDarkTheme }) => (
+export const MarkerSvg = ({ SIZE, name, disc, isOpen }) => (
   <Tooltip
     hasArrow
     label={`${name} / ${fullNamesConfig[disc]}`}
@@ -35,16 +35,12 @@ export const MarkerSvg = ({ SIZE, name, disc, isOpen, isDarkTheme }) => (
           cy="387.805"
           rx="410.393"
           ry="387.805"
-          fill={
-            isOpen ? (isDarkTheme ? "#fff" : "#000") : markerConfig[disc][0]
-          }
+          fill={isOpen ? "#fff" : markerConfig[disc][0]}
           style={{ transition: "0.4s", zIndex: isOpen && "1000" }}
         />
         <path
           d="M445.5 1470L831.314 521.936H59.6857L445.5 1470Z"
-          fill={
-            isOpen ? (isDarkTheme ? "#fff" : "#000") : markerConfig[disc][0]
-          }
+          fill={isOpen ? "#fff" : markerConfig[disc][0]}
           style={{ transition: "0.4s" }}
         />
         <circle cx="446" cy="396" r="339" fill={markerConfig[disc][1]} />
@@ -57,7 +53,7 @@ export const MarkerSvg = ({ SIZE, name, disc, isOpen, isDarkTheme }) => (
           cx="446"
           cy="396"
           r="200"
-          fill={isOpen ? (isDarkTheme ? "#fff" : "#000") : "#c4c4c4"}
+          fill={isOpen ? "#fff" : "#c4c4c4"}
           style={{ transition: "0.4s" }}
         />
       </svg>

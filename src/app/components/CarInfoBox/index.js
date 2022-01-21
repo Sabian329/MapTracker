@@ -16,38 +16,42 @@ export const CarInfobox = ({
   batteryLevelPct,
 }) => {
   return (
-    <Wrapper>
-      <li>
-        <Text>
-          Status : {<StatusActive color={status}>{status}</StatusActive> || ""}
+    <>
+      <Wrapper>
+        <li>
+          <Text>
+            Status :{" "}
+            {<StatusActive color={status}>{status}</StatusActive> || ""}
+          </Text>
+        </li>
+        <li>
+          <Text>Plates : {<strong>{platesNumber}</strong> || ""}</Text>
+        </li>
+        <li>
+          <Text> Site Number : {<strong>{sideNumber}</strong> || ""}</Text>
+        </li>
+        <li>
+          <Text>Range : {<strong>{`${rangeKm} km`}</strong> || ""}</Text>
+        </li>
+        <li>
+          <Text>Type : {<strong>{type}</strong> || ""}</Text>
+        </li>
+      </Wrapper>
+
+      <BatteryWrapper>
+        <Text fontSize="1.2rem" fontWeight="600">
+          Battery Level
         </Text>
-      </li>
-      <li>
-        <Text>Plates : {<strong>{platesNumber}</strong> || ""}</Text>
-      </li>
-      <li>
-        <Text> Site Number : {<strong>{sideNumber}</strong> || ""}</Text>
-      </li>
-      <li>
-        <Text>Range : {<strong>{`${rangeKm} km`}</strong> || ""}</Text>
-      </li>
-      <li>
-        <Text>Type : {<strong>{type}</strong> || ""}</Text>
-      </li>
-      <li>
-        <BatteryWrapper>
-          <Text>Battery Level</Text>
-          <CircularProgress
-            size="100px"
-            value={batteryLevelPct}
-            color="green.400"
-          >
-            <CircularProgressLabel>
-              {batteryLevelPct + "%" || ""}
-            </CircularProgressLabel>
-          </CircularProgress>
-        </BatteryWrapper>
-      </li>
-    </Wrapper>
+        <CircularProgress
+          size="100px"
+          value={batteryLevelPct}
+          color="green.400"
+        >
+          <CircularProgressLabel>
+            {batteryLevelPct + "%" || ""}
+          </CircularProgressLabel>
+        </CircularProgress>
+      </BatteryWrapper>
+    </>
   );
 };

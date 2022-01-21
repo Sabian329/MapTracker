@@ -8,7 +8,6 @@ import { useState } from "react/cjs/react.development";
 export const MarkerItem = ({
   location,
   discriminator,
-  isDarkTheme,
   setBoxId,
   id,
   boxId,
@@ -16,7 +15,7 @@ export const MarkerItem = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => boxId !== id && setIsOpen(false), [boxId]);
+  useEffect(() => (boxId !== id ? setIsOpen(false) : setIsOpen(true)), [boxId]);
   const toggleMarker = () => {
     setBoxId(id);
     setIsOpen(true);
@@ -33,7 +32,6 @@ export const MarkerItem = ({
           SIZE={SIZE}
           disc={discriminator}
           name={name}
-          isDarkTheme={isDarkTheme}
           isOpen={isOpen}
         />
       </Marker>

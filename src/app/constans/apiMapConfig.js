@@ -8,31 +8,6 @@ export const URL = "https://dev.vozilla.pl/api-client-portal/map?objectType=";
 //pin size config
 export const SIZE = 50;
 
-//map controls config
-export const geolocateStyle = {
-  top: 0,
-  left: 0,
-  padding: "10px",
-};
-
-export const fullscreenControlStyle = {
-  top: 36,
-  left: 0,
-  padding: "10px",
-};
-
-export const navStyle = {
-  top: 72,
-  left: 0,
-  padding: "10px",
-};
-
-export const scaleControlStyle = {
-  bottom: 36,
-  left: 0,
-  padding: "10px",
-};
-
 //initial map state
 export const mapInitial = {
   latitude: 51.11057,

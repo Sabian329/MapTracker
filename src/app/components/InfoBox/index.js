@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  CircularProgressLabel,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Heading, Text } from "@chakra-ui/react";
 
 import { CarInfobox } from "../CarInfoBox";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -14,7 +7,18 @@ import React from "react";
 import { fullNamesConfig } from "../../constans/mapObjectsConfig";
 
 export const InfoBox = ({ apiItems, setBoxId }) => {
-  const { name, discriminator, address } = apiItems[0];
+  const { name, discriminator, address, location } = apiItems[0];
+
+  const { GeoCoord } = require("geo-coord");
+
+  const cords = new GeoCoord(location?.latitude, location?.longitude).toDMS();
+
+  const convertedCords = new GeoCoord({
+    latitude: cords?.latitude,
+    longitude: cords?.longitude,
+  })
+    .roundToSeconds()
+    .toString();
 
   return (
     <Pin>
@@ -26,13 +30,19 @@ export const InfoBox = ({ apiItems, setBoxId }) => {
         Close
       </Button>
       <Heading>{name}</Heading>
-      <Text textAlign="center">{fullNamesConfig[discriminator]}</Text>
+      <Text color="#c4c4c4" textAlign="center">
+        {fullNamesConfig[discriminator]}
+      </Text>
+
       {discriminator === "parking" && (
-        <Text textAlign="center">{`${address?.city} ${address?.street} ${
-          address?.house || ""
-        }`}</Text>
+        <Text fontSize="1.2rem" textAlign="center">{`${address?.city} ${
+          address?.street
+        } ${address?.house || ""}`}</Text>
       )}
       {discriminator === "vehicle" && <CarInfobox {...apiItems[0]} />}
+      <Text fontSize="0.8rem" textAlign="center">
+        {convertedCords}
+      </Text>
     </Pin>
   );
 };

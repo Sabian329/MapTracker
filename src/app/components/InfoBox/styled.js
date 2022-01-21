@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const Pin = styled.div`
   position: absolute;
   left: 1rem;
-  bottom: 10rem;
+  bottom: 2rem;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 150;
-  width: 15rem;
+  width: 17rem;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -17,8 +17,8 @@ export const Pin = styled.div`
     width: 100%;
   }
   h2 {
-    font-weight: 300;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 1.4rem;
     text-align: center;
   }
 `;

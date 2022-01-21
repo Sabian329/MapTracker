@@ -2,22 +2,21 @@ import {
   Button,
   Collapse,
   Heading,
-  Switch,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { CheckIcon, MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
+import { CheckIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   IconWrapper,
   Menu,
   ResultsLabel,
   SearchButtons,
-  ThemeSwitch,
   Wrapper,
 } from "./styled";
 
 import { Fade as Icon } from "hamburger-react";
 import React from "react";
+import { ResutList } from "../ResultsList";
 import { btnConfig } from "../../constans/mapObjectsConfig";
 import { menuVariants } from "../../theme/animationsVariants";
 import { motion } from "framer-motion";
@@ -26,22 +25,22 @@ export const HamburgerMenu = ({
   isMenuOpen,
   setIsMenuOpen,
   setSearchObject,
-  isDarkTheme,
-  setIsDarkTheme,
   apiItems,
   searchObject,
+  onSelectCity,
+  setBoxId,
+  boxId,
 }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const setEndpointResetId = (btn) => {
+    setSearchObject(btn.endpoint);
+    setBoxId("");
+  };
 
   return (
     <Wrapper>
       <IconWrapper>
-        <Icon
-          color={isDarkTheme ? "#FFF" : "#000"}
-          toggled={isMenuOpen}
-          toggle={setIsMenuOpen}
-          direction="left"
-        />
+        <Icon toggled={isMenuOpen} toggle={setIsMenuOpen} direction="left" />
       </IconWrapper>
       <motion.div
         animate={isMenuOpen ? "open" : "closed"}
@@ -53,11 +52,6 @@ export const HamburgerMenu = ({
             <Heading>{apiItems.length}</Heading>
           </ResultsLabel>
 
-          <ThemeSwitch>
-            <MoonIcon />
-            <Switch onChange={() => setIsDarkTheme(!isDarkTheme)} size="md" />
-            <SunIcon />
-          </ThemeSwitch>
           <SearchButtons>
             <Button
               rightIcon={<SearchIcon />}
@@ -71,7 +65,7 @@ export const HamburgerMenu = ({
               <ul>
                 {btnConfig.map((btn) => (
                   <li key={btn.name}>
-                    <Button onClick={() => setSearchObject(btn.endpoint)}>
+                    <Button onClick={() => setEndpointResetId(btn)}>
                       {btn.name}
                       {searchObject === btn.endpoint && <CheckIcon />}
                     </Button>
@@ -80,6 +74,13 @@ export const HamburgerMenu = ({
               </ul>
             </Collapse>
           </SearchButtons>
+          <ResutList
+            boxId={boxId}
+            searchObject={searchObject}
+            setBoxId={setBoxId}
+            onSelectCity={onSelectCity}
+            apiItems={apiItems}
+          />
         </Menu>
       </motion.div>
     </Wrapper>

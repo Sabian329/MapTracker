@@ -42,7 +42,6 @@ export const ThemeSwitch = styled.div`
   gap: 1rem;
 `;
 export const SearchButtons = styled.div`
-  margin-top: 1rem;
   width: 15rem;
   div {
     width: 100%;
@@ -53,7 +52,7 @@ export const SearchButtons = styled.div`
   }
   ul {
     margin-top: 1rem;
-    background-color: rgba(225, 225, 225, 0.5);
+    background-color: rgba(225, 225, 225, 0.2);
     border-radius: 10px;
     width: 100%;
     button {

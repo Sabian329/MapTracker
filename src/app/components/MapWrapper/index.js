@@ -1,38 +1,55 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import {
-  MAPBOX_TOKEN,
-  fullscreenControlStyle,
-  geolocateStyle,
-  mapInitial,
-  navStyle,
-  scaleControlStyle,
-} from "../../constans/apiMapConfig";
-import MapGL, {
-  FullscreenControl,
-  GeolocateControl,
-  NavigationControl,
-  ScaleControl,
-} from "react-map-gl";
-import React, { useMemo } from "react";
+import { MAPBOX_TOKEN, mapInitial } from "../../constans/apiMapConfig";
+import MapGL, { FlyToInterpolator } from "react-map-gl";
+import React, { useCallback, useMemo } from "react";
 
+import { HamburgerMenu } from "../HamburgerMenu";
 import { InfoBox } from "../InfoBox";
 import { MarkerItem } from "../MarkerItem";
 import { Wrapper } from "./styled";
 import { mapsStyle } from "../../theme/mapTheme";
 import { useState } from "react";
 
-export const MapWrapper = ({ apiItems, isDarkTheme }) => {
+export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
   const [viewport, setViewport] = useState(mapInitial);
   const [boxId, setBoxId] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const onSelectCity = useCallback(({ longitude, latitude }) => {
+    setViewport({
+      longitude,
+      latitude,
+      zoom: 17,
+      transitionInterpolator: new FlyToInterpolator({ speed: 3 }),
+      transitionDuration: "auto",
+    });
+  }, []);
+
+  const menuProps = {
+    isMenuOpen,
+    setIsMenuOpen,
+    setSearchObject,
+    apiItems,
+    searchObject,
+    onSelectCity,
+    setBoxId,
+    boxId,
+  };
   return (
     <Wrapper>
+      {useMemo(
+        () => (
+          <HamburgerMenu {...menuProps} />
+        ),
+        [menuProps]
+      )}
+
       <MapGL
         {...viewport}
         width="100vw"
         height="100vh"
-        mapStyle={isDarkTheme ? mapsStyle.dark : mapsStyle.light}
+        mapStyle={mapsStyle.dark}
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
@@ -40,14 +57,13 @@ export const MapWrapper = ({ apiItems, isDarkTheme }) => {
           () =>
             apiItems?.map((item) => (
               <MarkerItem
-                isDarkTheme={isDarkTheme}
                 setBoxId={setBoxId}
                 boxId={boxId}
                 key={item.id}
                 {...item}
               />
             )),
-          [apiItems, isDarkTheme, boxId]
+          [apiItems, boxId]
         )}
         {useMemo(
           () =>
@@ -57,10 +73,8 @@ export const MapWrapper = ({ apiItems, isDarkTheme }) => {
                 apiItems={apiItems.filter((item) => item.id.includes(boxId))}
               />
             ),
-          [boxId]
+          [boxId, apiItems]
         )}
-        <NavigationControl style={navStyle} />
-        <ScaleControl style={scaleControlStyle} />
       </MapGL>
     </Wrapper>
   );
