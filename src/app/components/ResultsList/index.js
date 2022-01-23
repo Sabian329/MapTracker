@@ -1,55 +1,64 @@
-import { ArrowUpIcon, UpDownIcon } from "@chakra-ui/icons";
-import { Button, Collapse, useDisclosure } from "@chakra-ui/react";
 import { Item, ItemsList, Wrapper } from "./styled";
+import React, { useEffect, useState } from "react";
 
-import React from "react";
+import { SortButtons } from "../SortButtons";
+import { Text } from "@chakra-ui/react";
 
 export const ResutList = ({
   apiItems,
   onSelectCity,
-  setBoxId,
+  setActiveId,
   searchObject,
-  boxId,
+  activeId,
 }) => {
-  const { isOpen, onToggle } = useDisclosure();
+  const [itemsState, setItemsState] = useState({
+    items: apiItems,
+    direction: false,
+    parameter: "name",
+  });
+
   const setItemActive = (item) => {
-    setBoxId(item?.id);
-    onSelectCity({
-      longitude: item.location.longitude,
-      latitude: item.location.latitude,
+    setActiveId(item?.id);
+    item.id !== activeId &&
+      onSelectCity({
+        longitude: item.location.longitude,
+        latitude: item.location.latitude,
+      });
+  };
+  useEffect(() => {
+    setItemsState((prev) => ({ ...prev, items: apiItems }));
+  }, [apiItems]);
+
+  const sortBy = (param) => {
+    setItemsState({
+      direction: !itemsState.direction,
+      items: itemsState.direction
+        ? [
+            ...itemsState.items.sort((a, b) =>
+              a?.[param] > b?.[param] ? 1 : -1
+            ),
+          ]
+        : [
+            ...itemsState.items.sort((a, b) =>
+              a?.[param] < b?.[param] ? 1 : -1
+            ),
+          ],
+      parameter: param,
     });
   };
 
   return (
     <Wrapper>
-      <Button
-        rightIcon={<UpDownIcon />}
-        colorScheme="blue"
-        color="white"
-        onClick={onToggle}
-      >
-        Sort By
-      </Button>
-      <Collapse in={isOpen} animateOpacity>
-        <Button rightIcon={<ArrowUpIcon />} colorScheme="blue" color="white">
-          Name
-        </Button>
-        {searchObject === "VEHICLE" && (
-          <>
-            <Button colorScheme="blue" color="white">
-              Battery
-            </Button>
-            <Button colorScheme="blue" color="white">
-              Range
-            </Button>
-          </>
-        )}
-      </Collapse>
+      <SortButtons
+        sortBy={sortBy}
+        searchObject={searchObject}
+        {...itemsState}
+      />
       <ItemsList>
-        {apiItems.map((item, index) => (
+        {itemsState.items.map((item, index) => (
           <Item key={item.id} onClick={() => setItemActive(item)}>
-            <p>{index + 1}.</p>
-            <p>{item.name}</p>
+            <Text>{index + 1}.</Text>
+            <Text>{item.name}</Text>
           </Item>
         ))}
       </ItemsList>

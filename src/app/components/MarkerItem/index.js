@@ -6,33 +6,44 @@ import { SIZE } from "../../constans/apiMapConfig";
 import { useState } from "react/cjs/react.development";
 
 export const MarkerItem = ({
-  location,
-  discriminator,
-  setBoxId,
-  id,
-  boxId,
-  name,
+  setActiveId,
+  activeId,
+  geometry,
+  properties,
+  onSelectCity,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [longitude, latitude] = geometry.coordinates;
+  const { name, cluster, point_count, id, discriminator } = properties;
 
-  useEffect(() => (boxId !== id ? setIsOpen(false) : setIsOpen(true)), [boxId]);
+  useEffect(
+    () => (activeId !== id ? setIsOpen(false) : setIsOpen(true)),
+    [activeId, id]
+  );
   const toggleMarker = () => {
-    setBoxId(id);
+    setActiveId(id);
     setIsOpen(true);
+    cluster &&
+      onSelectCity({
+        longitude: longitude,
+        latitude: latitude,
+      });
   };
 
   return (
     <>
       <Marker
-        longitude={location.longitude}
-        latitude={location.latitude}
+        longitude={longitude}
+        latitude={latitude}
         onClick={() => toggleMarker()}
       >
         <MarkerSvg
+          cluster={cluster}
           SIZE={SIZE}
           disc={discriminator}
           name={name}
           isOpen={isOpen}
+          pointCount={point_count}
         />
       </Marker>
     </>

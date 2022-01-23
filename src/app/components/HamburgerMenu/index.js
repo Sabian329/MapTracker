@@ -28,13 +28,13 @@ export const HamburgerMenu = ({
   apiItems,
   searchObject,
   onSelectCity,
-  setBoxId,
-  boxId,
+  setActiveId,
+  activeId,
 }) => {
   const { isOpen, onToggle } = useDisclosure();
   const setEndpointResetId = (btn) => {
     setSearchObject(btn.endpoint);
-    setBoxId("");
+    setActiveId("");
   };
 
   return (
@@ -51,7 +51,7 @@ export const HamburgerMenu = ({
             <Text>results</Text>
             <Heading>{apiItems.length}</Heading>
           </ResultsLabel>
-
+          <hr />
           <SearchButtons>
             <Button
               rightIcon={<SearchIcon />}
@@ -67,7 +67,9 @@ export const HamburgerMenu = ({
                   <li key={btn.name}>
                     <Button onClick={() => setEndpointResetId(btn)}>
                       {btn.name}
-                      {searchObject === btn.endpoint && <CheckIcon />}
+                      {searchObject === btn.endpoint && (
+                        <CheckIcon color="green.500" />
+                      )}
                     </Button>
                   </li>
                 ))}
@@ -75,9 +77,9 @@ export const HamburgerMenu = ({
             </Collapse>
           </SearchButtons>
           <ResutList
-            boxId={boxId}
+            activeId={activeId}
             searchObject={searchObject}
-            setBoxId={setBoxId}
+            setActiveId={setActiveId}
             onSelectCity={onSelectCity}
             apiItems={apiItems}
           />

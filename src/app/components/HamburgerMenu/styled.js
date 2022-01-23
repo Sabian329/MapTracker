@@ -1,9 +1,10 @@
+import { device } from "../../theme/mediaQueries";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
   top: 0;
-  z-index: 120;
+  z-index: 250;
   right: 0;
 `;
 
@@ -16,6 +17,24 @@ export const Menu = styled.nav`
   align-items: center;
   gap: 2rem;
   border-radius: 10px 0 10px 10px;
+  hr {
+    width: 90%;
+    color: #fff;
+  }
+  @media ${device.L} {
+    background-color: rgba(0, 0, 0);
+    height: 100vh;
+  }
+  @media ${device.M} {
+    padding: 2rem 0 0 0;
+    width: 14rem;
+    gap: 1rem;
+    border-radius: 10px 0 0 10px;
+    overflow: scroll;
+    hr {
+      width: 70%;
+    }
+  }
 `;
 export const IconWrapper = styled.div`
   position: absolute;
@@ -34,13 +53,16 @@ export const ResultsLabel = styled.div`
   p {
     font-size: 1.5rem;
   }
+  @media ${device.M} {
+    h2 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
 `;
-export const ThemeSwitch = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-`;
+
 export const SearchButtons = styled.div`
   width: 15rem;
   div {
@@ -59,9 +81,15 @@ export const SearchButtons = styled.div`
       background: none;
       display: flex;
       justify-content: space-between;
+      @media ${device.M} {
+        font-size: 0.8rem;
+      }
     }
   }
   li {
     list-style: none;
+  }
+  @media ${device.M} {
+    width: 10rem;
   }
 `;

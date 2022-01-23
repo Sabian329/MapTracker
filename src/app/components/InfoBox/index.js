@@ -1,12 +1,12 @@
 import { Button, Heading, Text } from "@chakra-ui/react";
 
+import { BoxWrapper } from "./styled";
 import { CarInfobox } from "../CarInfoBox";
 import { CloseIcon } from "@chakra-ui/icons";
-import { Pin } from "./styled";
 import React from "react";
 import { fullNamesConfig } from "../../constans/mapObjectsConfig";
 
-export const InfoBox = ({ apiItems, setBoxId }) => {
+export const InfoBox = ({ apiItems, setActiveId }) => {
   const { name, discriminator, address, location } = apiItems[0];
 
   const { GeoCoord } = require("geo-coord");
@@ -21,11 +21,11 @@ export const InfoBox = ({ apiItems, setBoxId }) => {
     .toString();
 
   return (
-    <Pin>
+    <BoxWrapper>
       <Button
         rightIcon={<CloseIcon />}
         colorScheme="blue"
-        onClick={() => setBoxId("")}
+        onClick={() => setActiveId("")}
       >
         Close
       </Button>
@@ -43,6 +43,6 @@ export const InfoBox = ({ apiItems, setBoxId }) => {
       <Text fontSize="0.8rem" textAlign="center">
         {convertedCords}
       </Text>
-    </Pin>
+    </BoxWrapper>
   );
 };

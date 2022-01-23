@@ -13,7 +13,8 @@ export const mapInitial = {
   latitude: 51.11057,
   longitude: 17.044326,
   zoom: 10,
-  bearing: 0,
-  pitch: 0,
   minZoom: 3,
+};
+export const mapsStyle = {
+  dark: "mapbox://styles/mapbox/navigation-night-v1",
 };

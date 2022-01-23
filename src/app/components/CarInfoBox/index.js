@@ -1,4 +1,4 @@
-import { BatteryWrapper, StatusActive, Wrapper } from "./styled";
+import { BatteryWrapper, ListWrapper, StatusActive, Wrapper } from "./styled";
 import {
   CircularProgress,
   CircularProgressLabel,
@@ -16,8 +16,8 @@ export const CarInfobox = ({
   batteryLevelPct,
 }) => {
   return (
-    <>
-      <Wrapper>
+    <Wrapper>
+      <ListWrapper>
         <li>
           <Text>
             Status :{" "}
@@ -36,22 +36,18 @@ export const CarInfobox = ({
         <li>
           <Text>Type : {<strong>{type}</strong> || ""}</Text>
         </li>
-      </Wrapper>
+      </ListWrapper>
 
       <BatteryWrapper>
         <Text fontSize="1.2rem" fontWeight="600">
           Battery Level
         </Text>
-        <CircularProgress
-          size="100px"
-          value={batteryLevelPct}
-          color="green.400"
-        >
+        <CircularProgress size="60px" value={batteryLevelPct} color="green.400">
           <CircularProgressLabel>
             {batteryLevelPct + "%" || ""}
           </CircularProgressLabel>
         </CircularProgress>
       </BatteryWrapper>
-    </>
+    </Wrapper>
   );
 };

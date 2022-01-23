@@ -10,6 +10,7 @@ export const markerConfig = {
   parking: ["#a6000e", "#FF0000"],
   vehicle: ["#1CC900", "#22F500"],
   poi: ["#0075FF", "#0094FF"],
+  cluster: ["#A30000", "#620008"],
 };
 //info box config to display full names
 export const fullNamesConfig = {
