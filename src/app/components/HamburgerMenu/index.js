@@ -2,6 +2,7 @@ import {
   Button,
   Collapse,
   Heading,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -13,9 +14,9 @@ import {
   SearchButtons,
   Wrapper,
 } from "./styled";
+import React, { useEffect, useState } from "react";
 
 import { Fade as Icon } from "hamburger-react";
-import React from "react";
 import { ResutList } from "../ResultsList";
 import { btnConfig } from "../../constans/mapObjectsConfig";
 import { menuVariants } from "../../theme/animationsVariants";
@@ -32,11 +33,15 @@ export const HamburgerMenu = ({
   activeId,
 }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
   const setEndpointResetId = (btn) => {
+    searchObject !== btn.endpoint && setIsLoading(true);
     setSearchObject(btn.endpoint);
     setActiveId("");
   };
-
+  useEffect(() => {
+    setIsLoading(false);
+  }, [apiItems]);
   return (
     <Wrapper>
       <IconWrapper>
@@ -47,9 +52,10 @@ export const HamburgerMenu = ({
         variants={menuVariants}
       >
         <Menu>
+          {/* results counter of api data*/}
           <ResultsLabel>
             <Text>results</Text>
-            <Heading>{apiItems.length}</Heading>
+            {isLoading ? <Spinner /> : <Heading>{apiItems.length}</Heading>}
           </ResultsLabel>
           <hr />
           <SearchButtons>
@@ -65,8 +71,12 @@ export const HamburgerMenu = ({
               <ul>
                 {btnConfig.map((btn) => (
                   <li key={btn.name}>
-                    <Button onClick={() => setEndpointResetId(btn)}>
+                    <Button
+                      // disabled={searchObject === btn.endpoint && true}
+                      onClick={() => setEndpointResetId(btn)}
+                    >
                       {btn.name}
+
                       {searchObject === btn.endpoint && (
                         <CheckIcon color="green.500" />
                       )}
@@ -76,7 +86,9 @@ export const HamburgerMenu = ({
               </ul>
             </Collapse>
           </SearchButtons>
+          {/*list of api results*/}
           <ResutList
+            isLoading={isLoading}
             activeId={activeId}
             searchObject={searchObject}
             setActiveId={setActiveId}

@@ -4,11 +4,18 @@ import { TriangleDownIcon, TriangleUpIcon, UpDownIcon } from "@chakra-ui/icons";
 import React from "react";
 import { Wrapper } from "./styled";
 
-export const SortButtons = ({ parameter, direction, sortBy, searchObject }) => {
+export const SortButtons = ({
+  parameter,
+  direction,
+  sortBy,
+  searchObject,
+  isLoading,
+}) => {
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Wrapper>
       <Button
+        isLoading={isLoading}
         rightIcon={<UpDownIcon />}
         colorScheme="blue"
         color="white"

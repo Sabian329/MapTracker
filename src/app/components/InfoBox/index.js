@@ -9,10 +9,10 @@ import { fullNamesConfig } from "../../constans/mapObjectsConfig";
 export const InfoBox = ({ apiItems, setActiveId }) => {
   const { name, discriminator, address, location } = apiItems[0];
 
+  //geoCord library convert coordinates from degrees to Degrees Minutes Seconds
+
   const { GeoCoord } = require("geo-coord");
-
   const cords = new GeoCoord(location?.latitude, location?.longitude).toDMS();
-
   const convertedCords = new GeoCoord({
     latitude: cords?.latitude,
     longitude: cords?.longitude,
@@ -39,6 +39,7 @@ export const InfoBox = ({ apiItems, setActiveId }) => {
           address?.street
         } ${address?.house || ""}`}</Text>
       )}
+      {/* if vehicle endpoint is searching additional data displays */}
       {discriminator === "vehicle" && <CarInfobox {...apiItems[0]} />}
       <Text fontSize="0.8rem" textAlign="center">
         {convertedCords}

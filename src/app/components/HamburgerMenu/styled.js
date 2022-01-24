@@ -11,12 +11,33 @@ export const Wrapper = styled.div`
 export const Menu = styled.nav`
   background-color: rgba(0, 0, 0, 0.87);
   width: 20rem;
+  height: 100vh;
+  max-height: 1000px;
   padding: 4rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  border-radius: 10px 0 10px 10px;
+  border-radius: 10px 0 0 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(225, 225, 225, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 0 10px 10px 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   hr {
     width: 90%;
     color: #fff;
@@ -30,7 +51,7 @@ export const Menu = styled.nav`
     width: 14rem;
     gap: 1rem;
     border-radius: 10px 0 0 10px;
-    overflow: scroll;
+
     hr {
       width: 70%;
     }
@@ -40,13 +61,14 @@ export const IconWrapper = styled.div`
   position: absolute;
   top: 0;
   z-index: 120;
-  right: 0;
+  right: 0.5rem;
 `;
 export const ResultsLabel = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  height: 3rem;
   h2 {
     font-size: 3rem;
   }

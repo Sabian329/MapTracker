@@ -10,7 +10,7 @@ export const MarkerSvg = ({
   SIZE,
   name,
   disc,
-  isOpen,
+  isActive,
   cluster,
   pointCount,
 }) => (
@@ -18,7 +18,7 @@ export const MarkerSvg = ({
     hasArrow
     label={
       cluster
-        ? `click to see ${pointCount} objects`
+        ? `zoom to see ${pointCount} objects`
         : `${name} / ${fullNamesConfig[disc]}`
     }
     bg="gray.300"
@@ -49,18 +49,18 @@ export const MarkerSvg = ({
           fill={
             cluster
               ? markerConfig.cluster[0]
-              : isOpen
+              : isActive
               ? "#fff"
               : markerConfig[disc][0]
           }
-          style={{ transition: "0.4s", zIndex: isOpen && "1000" }}
+          style={{ transition: "0.4s", zIndex: isActive && "1000" }}
         />
         <path
           d="M445.5 1470L831.314 521.936H59.6857L445.5 1470Z"
           fill={
             cluster
               ? markerConfig.cluster[0]
-              : isOpen
+              : isActive
               ? "#fff"
               : markerConfig[disc][0]
           }
@@ -81,7 +81,9 @@ export const MarkerSvg = ({
           cx="446"
           cy="396"
           r="200"
-          fill={cluster ? markerConfig.cluster[2] : isOpen ? "#fff" : "#c4c4c4"}
+          fill={
+            cluster ? markerConfig.cluster[2] : isActive ? "#fff" : "#c4c4c4"
+          }
           style={{ transition: "0.4s" }}
         ></circle>
       </svg>

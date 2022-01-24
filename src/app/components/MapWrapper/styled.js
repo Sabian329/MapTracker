@@ -1,3 +1,4 @@
+import { size } from "../../theme/mediaQueries";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -5,28 +6,12 @@ export const Wrapper = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 150;
   background-color: black;
   position: relative;
+  max-width: ${size.XL};
+  overflow: hidden;
   a {
     display: none;
-  }
-  .cluster-marker {
-    color: #fff;
-    background: #1978c8;
-    border-radius: 50%;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .crime-marker {
-    background: none;
-    border: none;
-  }
-
-  .crime-marker img {
-    width: 25px;
   }
 `;

@@ -5,47 +5,33 @@ import { MarkerSvg } from "../../../assets/svg/MarkerSvg";
 import { SIZE } from "../../constans/apiMapConfig";
 import { useState } from "react/cjs/react.development";
 
-export const MarkerItem = ({
-  setActiveId,
-  activeId,
-  geometry,
-  properties,
-  onSelectCity,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const MarkerItem = ({ setActiveId, activeId, geometry, properties }) => {
+  const [isActive, setIsActive] = useState(false);
   const [longitude, latitude] = geometry.coordinates;
   const { name, cluster, point_count, id, discriminator } = properties;
 
   useEffect(
-    () => (activeId !== id ? setIsOpen(false) : setIsOpen(true)),
+    () => (activeId !== id ? setIsActive(false) : setIsActive(true)),
     [activeId, id]
   );
+
   const toggleMarker = () => {
     setActiveId(id);
-    setIsOpen(true);
-    cluster &&
-      onSelectCity({
-        longitude: longitude,
-        latitude: latitude,
-      });
+    setIsActive(true);
   };
 
   return (
-    <>
-      <Marker
-        longitude={longitude}
-        latitude={latitude}
-        onClick={() => toggleMarker()}
-      >
+    <div onClick={() => toggleMarker()}>
+      <Marker longitude={longitude} latitude={latitude}>
         <MarkerSvg
           cluster={cluster}
           SIZE={SIZE}
           disc={discriminator}
           name={name}
-          isOpen={isOpen}
+          isActive={isActive}
           pointCount={point_count}
         />
       </Marker>
-    </>
+    </div>
   );
 };

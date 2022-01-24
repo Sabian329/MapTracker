@@ -27,7 +27,7 @@ export const ItemsList = styled.ul`
   }
 
   ::-webkit-scrollbar-track {
-    background: #c4c4c4;
+    background: rgba(225, 225, 225, 0.1);
     border-radius: 0 10px 10px 0;
   }
 

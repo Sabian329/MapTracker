@@ -20,6 +20,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
   const [activeId, setActiveId] = useState("");
   const mapRef = useRef();
 
+  // click on items list or cluster transfer to select point on map
   const onSelectCity = useCallback(({ longitude, latitude }) => {
     setViewport({
       longitude,
@@ -29,7 +30,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
       transitionInterpolator: new FlyToInterpolator({ speed: 3 }),
     });
   }, []);
-
+  // add data to cluster object
   const points = apiItems?.map((item) => ({
     properties: {
       cluster: false,
@@ -40,7 +41,9 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
     },
   }));
 
-  const bounds = mapRef.current?.getMap().getBounds().toArray().flat();
+  const bounds =
+    (mapRef.current && mapRef.current.getMap().getBounds().toArray().flat()) ||
+    null;
 
   const { clusters } = useSupercluster({
     points,
@@ -48,6 +51,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
     zoom: viewport.zoom,
     options: { radius: 90, maxZoom: 15 },
   });
+
   return (
     <Wrapper>
       {useMemo(
@@ -63,7 +67,14 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
             searchObject={searchObject}
           />
         ),
-        [isMenuOpen, apiItems, activeId, searchObject]
+        [
+          isMenuOpen,
+          apiItems,
+          activeId,
+          searchObject,
+          onSelectCity,
+          setSearchObject,
+        ]
       )}
 
       <ReactMapGL
@@ -89,7 +100,6 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
                   setActiveId={setActiveId}
                   activeId={activeId}
                   {...cluster}
-                  onSelectCity={onSelectCity}
                 />
               ))}
               {activeId && (
@@ -102,7 +112,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
               )}
             </>
           ),
-          [activeId, clusters?.length]
+          [activeId, apiItems, clusters?.length] // eslint-disable-line react-hooks/exhaustive-deps
         )}
       </ReactMapGL>
     </Wrapper>

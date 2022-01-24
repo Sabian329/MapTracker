@@ -36,7 +36,20 @@ export const ListWrapper = styled.ul`
   }
 `;
 export const StatusActive = styled.strong`
-  color: ${(props) => (props?.color === `AVAILABLE` ? "#48bb78" : "#d33d3d")};
+  color: ${({ status }) => (status === `AVAILABLE` ? "#48bb78" : "#d33d3d")};
+  animation: ${({ status }) =>
+    status === `AVAILABLE` && "activePulse 1.5s infinite"};
+  @keyframes activePulse {
+    0% {
+      color: #48bb78;
+    }
+    50% {
+      color: #00ff40;
+    }
+    100% {
+      color: #48bb78;
+    }
+  }
 `;
 
 export const BatteryWrapper = styled.div`

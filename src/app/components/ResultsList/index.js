@@ -10,6 +10,7 @@ export const ResutList = ({
   setActiveId,
   searchObject,
   activeId,
+  isLoading,
 }) => {
   const [itemsState, setItemsState] = useState({
     items: apiItems,
@@ -17,6 +18,7 @@ export const ResutList = ({
     parameter: "name",
   });
 
+  //click on item list transfer view to select poin and open InfoBox
   const setItemActive = (item) => {
     setActiveId(item?.id);
     item.id !== activeId &&
@@ -53,15 +55,18 @@ export const ResutList = ({
         sortBy={sortBy}
         searchObject={searchObject}
         {...itemsState}
+        isLoading={isLoading}
       />
-      <ItemsList>
-        {itemsState.items.map((item, index) => (
-          <Item key={item.id} onClick={() => setItemActive(item)}>
-            <Text>{index + 1}.</Text>
-            <Text>{item.name}</Text>
-          </Item>
-        ))}
-      </ItemsList>
+      {!isLoading && (
+        <ItemsList>
+          {itemsState.items.map((item, index) => (
+            <Item key={item.id} onClick={() => setItemActive(item)}>
+              <Text>{index + 1}.</Text>
+              <Text>{item.name}</Text>
+            </Item>
+          ))}
+        </ItemsList>
+      )}
     </Wrapper>
   );
 };

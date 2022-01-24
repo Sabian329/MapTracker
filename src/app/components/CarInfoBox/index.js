@@ -20,8 +20,8 @@ export const CarInfobox = ({
       <ListWrapper>
         <li>
           <Text>
-            Status :{" "}
-            {<StatusActive color={status}>{status}</StatusActive> || ""}
+            Status :
+            {<StatusActive status={status}>{` ${status}`}</StatusActive> || ""}
           </Text>
         </li>
         <li>
