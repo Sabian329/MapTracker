@@ -23,7 +23,7 @@ Searching for cars gives you again, even more specifics and sort options. Enjoy!
 1.  Clone the repo
 
 ```sh
-git clone https://github.com/Sabian329/CarTracker
+git clone https://github.com/Sabian329/MapTracker
 ```
 
 2.  Install NPM packages
