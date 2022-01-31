@@ -10,6 +10,8 @@
 - [Figma](https://www.figma.com/) - create pin svg
 - [Axios](https://axios-http.com/) - get data from api data base
 
+<img src="https://github.com/Sabian329/Sabian329/blob/main/maps.png"/>
+
 ## Start using this app
 
 Use hamburger button to open menu. Select and sort objects as you wish. Hovering over a pin allows you to peek at quick info. When you click the pin, a box will pop up - showing even more detailed insights.
