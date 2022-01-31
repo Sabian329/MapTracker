@@ -3,7 +3,7 @@ export const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic2FiaWFuMzI5IiwiYSI6ImNreXNmcmN3NDAzeTAydnBsM2d4bzE0em8ifQ.8Ybm7Gx2bXjLCvMghX-amA";
 
 //api url
-export const URL = "https://dev.vozilla.pl/api-client-portal/map?objectType=";
+export const URL = "https://server-journey-api.herokuapp.com/";
 
 //pin size config
 export const SIZE = 50;

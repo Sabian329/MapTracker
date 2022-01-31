@@ -15,7 +15,7 @@ export const Root = () => {
     axios
       .get(`${URL}${searchObject}`)
       .then((res) => {
-        setApiItems(res.data.objects);
+        setApiItems(res.data);
       })
       .catch((error) => {
         console.log(error);
