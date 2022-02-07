@@ -12,12 +12,15 @@ import { HamburgerMenu } from "../HamburgerMenu";
 import { InfoBox } from "../InfoBox";
 import { MarkerItem } from "../MarkerItem";
 import { Wrapper } from "./styled";
+import { selectTheme } from "../../Redux/selectors";
+import { useSelector } from "react-redux";
 import useSupercluster from "use-supercluster";
 
 export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
   const [viewport, setViewport] = useState(mapInitial);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState("");
+  const themeStore = useSelector(selectTheme);
   const mapRef = useRef();
 
   // click on items list or cluster transfer to select point on map
@@ -82,7 +85,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
         maxZoom={20}
         width="100vw"
         height="100vh"
-        mapStyle={mapsStyle.dark}
+        mapStyle={themeStore.isDarkTheme ? mapsStyle.dark : mapsStyle.light}
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={(newViewport) => {
           setViewport({ ...newViewport });

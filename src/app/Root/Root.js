@@ -9,7 +9,7 @@ import { theme } from "../theme/chakraTheme";
 
 export const Root = () => {
   const [apiItems, setApiItems] = useState([]);
-  const [searchObject, setSearchObject] = useState("PARKING");
+  const [searchObject, setSearchObject] = useState("POI");
 
   useEffect(() => {
     axios

@@ -4,6 +4,7 @@ import { BoxWrapper } from "./styled";
 import { CarInfobox } from "../CarInfoBox";
 import { CloseIcon } from "@chakra-ui/icons";
 import React from "react";
+import { SwitchThemeButton } from "../SwitchThemeButton";
 import { fullNamesConfig } from "../../constans/mapObjectsConfig";
 
 export const InfoBox = ({ apiItems, setActiveId }) => {

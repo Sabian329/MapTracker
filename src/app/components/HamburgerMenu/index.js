@@ -15,12 +15,16 @@ import {
   Wrapper,
 } from "./styled";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Fade as Icon } from "hamburger-react";
 import { ResutList } from "../ResultsList";
+import { SwitchThemeButton } from "../SwitchThemeButton";
 import { btnConfig } from "../../constans/mapObjectsConfig";
 import { menuVariants } from "../../theme/animationsVariants";
 import { motion } from "framer-motion";
+import { selectTheme } from "../../Redux/selectors";
+import { switchTheme } from "../../Redux/slices/globalTheme";
 
 export const HamburgerMenu = ({
   isMenuOpen,
@@ -34,6 +38,9 @@ export const HamburgerMenu = ({
 }) => {
   const { isOpen, onToggle } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
+  const themeStore = useSelector(selectTheme);
+  const dispath = useDispatch();
+
   const setEndpointResetId = (btn) => {
     searchObject !== btn.endpoint && setIsLoading(true);
     setSearchObject(btn.endpoint);
@@ -42,6 +49,7 @@ export const HamburgerMenu = ({
   useEffect(() => {
     setIsLoading(false);
   }, [apiItems]);
+
   return (
     <Wrapper>
       <IconWrapper>
@@ -52,6 +60,7 @@ export const HamburgerMenu = ({
         variants={menuVariants}
       >
         <Menu>
+          <SwitchThemeButton />
           {/* results counter of api data*/}
           <ResultsLabel>
             <Text>results</Text>
