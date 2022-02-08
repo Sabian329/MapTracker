@@ -52,7 +52,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
     points,
     bounds,
     zoom: viewport.zoom,
-    options: { radius: 30, maxZoom: 20 },
+    options: { radius: 20, maxZoom: 10 },
   });
 
   return (
@@ -85,7 +85,13 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
         maxZoom={20}
         width="100vw"
         height="100vh"
-        mapStyle={themeStore.isDarkTheme ? mapsStyle.dark : mapsStyle.light}
+        mapStyle={
+          themeStore.isSatelite
+            ? mapsStyle.satelite
+            : themeStore.isDarkTheme
+            ? mapsStyle.dark
+            : mapsStyle.light
+        }
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={(newViewport) => {
           setViewport({ ...newViewport });

@@ -15,16 +15,15 @@ import {
   Wrapper,
 } from "./styled";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { Fade as Icon } from "hamburger-react";
 import { ResutList } from "../ResultsList";
-import { SwitchThemeButton } from "../SwitchThemeButton";
+import { SwitchTheme } from "../SwitchTheme";
 import { btnConfig } from "../../constans/mapObjectsConfig";
 import { menuVariants } from "../../theme/animationsVariants";
 import { motion } from "framer-motion";
 import { selectTheme } from "../../Redux/selectors";
-import { switchTheme } from "../../Redux/slices/globalTheme";
+import { useSelector } from "react-redux";
 
 export const HamburgerMenu = ({
   isMenuOpen,
@@ -39,7 +38,6 @@ export const HamburgerMenu = ({
   const { isOpen, onToggle } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const themeStore = useSelector(selectTheme);
-  const dispath = useDispatch();
 
   const setEndpointResetId = (btn) => {
     searchObject !== btn.endpoint && setIsLoading(true);
@@ -53,14 +51,20 @@ export const HamburgerMenu = ({
   return (
     <Wrapper>
       <IconWrapper>
-        <Icon toggled={isMenuOpen} toggle={setIsMenuOpen} direction="left" />
+        <Icon
+          color={themeStore.isDarkTheme ? "#fff" : "#575757"}
+          toggled={isMenuOpen}
+          toggle={setIsMenuOpen}
+          direction="left"
+        />
       </IconWrapper>
       <motion.div
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
       >
         <Menu>
-          <SwitchThemeButton />
+          <SwitchTheme colorTheme={false} />
+          <SwitchTheme colorTheme={true} />
           {/* results counter of api data*/}
           <ResultsLabel>
             <Text>results</Text>
