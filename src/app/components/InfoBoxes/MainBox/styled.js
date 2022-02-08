@@ -1,4 +1,4 @@
-import { device } from "../../theme/mediaQueries";
+import { device } from "../../../theme/mediaQueries";
 import styled from "styled-components";
 
 export const BoxWrapper = styled.div`

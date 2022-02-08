@@ -7,7 +7,7 @@ import {
 
 import React from "react";
 
-export const CarInfobox = ({
+export const CarInfoBox = ({
   status,
   platesNumber,
   sideNumber,

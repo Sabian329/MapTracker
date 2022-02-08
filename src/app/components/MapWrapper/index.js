@@ -9,7 +9,7 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 
 import { HamburgerMenu } from "../HamburgerMenu";
-import { InfoBox } from "../InfoBox";
+import { MainBox } from "../InfoBoxes/MainBox";
 import { MarkerItem } from "../MarkerItem";
 import { Wrapper } from "./styled";
 import { selectTheme } from "../../Redux/selectors";
@@ -112,7 +112,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
                 />
               ))}
               {activeId && (
-                <InfoBox
+                <MainBox
                   setActiveId={setActiveId}
                   apiItems={apiItems.filter((item) =>
                     item.id.includes(activeId)

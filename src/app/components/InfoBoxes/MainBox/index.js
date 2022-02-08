@@ -1,12 +1,13 @@
 import { Button, Heading, Text } from "@chakra-ui/react";
 
+import { AirfieldInfoBox } from "../AirfieldInfoBox";
 import { BoxWrapper } from "./styled";
-import { CarInfobox } from "../CarInfoBox";
+import { CarInfoBox } from "../CarInfoBox";
 import { CloseIcon } from "@chakra-ui/icons";
 import React from "react";
-import { fullNamesConfig } from "../../constans/mapObjectsConfig";
+import { fullNamesConfig } from "../../../constans/mapObjectsConfig";
 
-export const InfoBox = ({ apiItems, setActiveId }) => {
+export const MainBox = ({ apiItems, setActiveId }) => {
   const { name, discriminator, address, location } = apiItems[0];
 
   //geoCord library convert coordinates from degrees to Degrees Minutes Seconds
@@ -33,14 +34,14 @@ export const InfoBox = ({ apiItems, setActiveId }) => {
       <Text color="#c4c4c4" textAlign="center">
         {fullNamesConfig[discriminator]}
       </Text>
-
+      {discriminator === "airfield" && <AirfieldInfoBox {...apiItems[0]} />}
       {discriminator === "parking" && (
         <Text fontSize="1.2rem" textAlign="center">{`${address?.city} ${
           address?.street
         } ${address?.house || ""}`}</Text>
       )}
       {/* if vehicle endpoint is searching additional data displays */}
-      {discriminator === "vehicle" && <CarInfobox {...apiItems[0]} />}
+      {discriminator === "vehicle" && <CarInfoBox {...apiItems[0]} />}
       <Text fontSize="0.8rem" textAlign="center">
         {convertedCords}
       </Text>
