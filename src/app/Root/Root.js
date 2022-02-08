@@ -12,16 +12,16 @@ export const Root = () => {
   const [apiItems, setApiItems] = useState([]);
   const [searchObject, setSearchObject] = useState("POI");
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${URL}${searchObject}`)
-  //     .then((res) => {
-  //       setApiItems(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [searchObject]);
+  useEffect(() => {
+    axios
+      .get(`https://server-journey-api.herokuapp.com/AIRFIELDS`)
+      .then((res) => {
+        setApiItems(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <ChakraProvider theme={theme}>
       <Wrapper>
@@ -39,3 +39,4 @@ export const Root = () => {
     </ChakraProvider>
   );
 };
+// ${URL}${searchObject}
