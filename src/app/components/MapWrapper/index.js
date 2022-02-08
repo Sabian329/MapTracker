@@ -52,7 +52,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
     points,
     bounds,
     zoom: viewport.zoom,
-    options: { radius: 90, maxZoom: 15 },
+    options: { radius: 30, maxZoom: 20 },
   });
 
   return (
