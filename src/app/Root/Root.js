@@ -6,6 +6,7 @@ import { URL } from "../constans/apiMapConfig";
 import { Wrapper } from "./styled";
 import axios from "axios";
 import { theme } from "../theme/chakraTheme";
+import { useMemo } from "react";
 
 export const Root = () => {
   const [apiItems, setApiItems] = useState([]);
@@ -24,11 +25,16 @@ export const Root = () => {
   return (
     <ChakraProvider theme={theme}>
       <Wrapper>
-        <MapWrapper
-          setSearchObject={setSearchObject}
-          searchObject={searchObject}
-          apiItems={apiItems}
-        />
+        {useMemo(
+          () => (
+            <MapWrapper
+              setSearchObject={setSearchObject}
+              searchObject={searchObject}
+              apiItems={apiItems}
+            />
+          ),
+          [apiItems] // eslint-disable-line react-hooks/exhaustive-deps
+        )}
       </Wrapper>
     </ChakraProvider>
   );

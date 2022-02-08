@@ -5,8 +5,6 @@ import {
 
 import React from "react";
 import { Tooltip } from "@chakra-ui/react";
-import { selectTheme } from "../../app/Redux/selectors";
-import { useSelector } from "react-redux";
 
 export const MarkerSvg = ({
   SIZE,
@@ -16,8 +14,6 @@ export const MarkerSvg = ({
   cluster,
   pointCount,
 }) => {
-  const themeStore = useSelector(selectTheme);
-
   return (
     <Tooltip
       hasArrow
