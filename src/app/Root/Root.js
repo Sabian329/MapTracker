@@ -14,14 +14,14 @@ export const Root = () => {
 
   useEffect(() => {
     axios
-      .get(`https://server-journey-api.herokuapp.com/AIRFIELDS`)
+      .get(`${URL}${searchObject}`)
       .then((res) => {
         setApiItems(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [searchObject]);
   return (
     <ChakraProvider theme={theme}>
       <Wrapper>
@@ -39,4 +39,3 @@ export const Root = () => {
     </ChakraProvider>
   );
 };
-// ${URL}${searchObject}
