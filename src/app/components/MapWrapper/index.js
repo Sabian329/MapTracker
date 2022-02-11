@@ -14,7 +14,6 @@ import { MarkerItem } from "../MarkerItem";
 import { Wrapper } from "./styled";
 import { selectTheme } from "../../Redux/selectors";
 import { useSelector } from "react-redux";
-import useSupercluster from "use-supercluster";
 
 export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
   const [viewport, setViewport] = useState(mapInitial);
@@ -33,27 +32,6 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
       transitionInterpolator: new FlyToInterpolator({ speed: 3 }),
     });
   }, []);
-  // add data to cluster object
-  const points = apiItems?.map((item) => ({
-    properties: {
-      cluster: false,
-      ...item,
-    },
-    geometry: {
-      coordinates: [item.location.longitude, item.location.latitude],
-    },
-  }));
-
-  const bounds =
-    (mapRef.current && mapRef.current.getMap().getBounds().toArray().flat()) ||
-    null;
-
-  const { clusters } = useSupercluster({
-    points,
-    bounds,
-    zoom: viewport.zoom,
-    options: { radius: 20, maxZoom: 10 },
-  });
 
   return (
     <Wrapper>
@@ -101,14 +79,12 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
         {useMemo(
           () => (
             <>
-              {clusters.map((cluster, index) => (
+              {apiItems?.map((item, index) => (
                 <MarkerItem
-                  key={
-                    cluster.properties.cluster ? index : cluster.properties.id
-                  }
+                  key={index}
                   setActiveId={setActiveId}
                   activeId={activeId}
-                  {...cluster}
+                  {...item}
                 />
               ))}
               {activeId && (
@@ -121,7 +97,7 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
               )}
             </>
           ),
-          [activeId, apiItems, clusters?.length] // eslint-disable-line react-hooks/exhaustive-deps
+          [activeId, apiItems] // eslint-disable-line react-hooks/exhaustive-deps
         )}
       </ReactMapGL>
     </Wrapper>

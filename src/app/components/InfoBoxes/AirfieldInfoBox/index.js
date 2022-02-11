@@ -28,7 +28,7 @@ export const AirfieldInfoBox = ({ freq, elevation, runways, photo }) => {
       <Text>{`RWY : ${runways}`}</Text>
       <Text>{`QNH ${weatherItems.main?.pressure}`}</Text>
       <Text>{`visibility ${weatherItems?.visibility} ft`}</Text>
-      <Text>{`${weatherItems?.weather[0].description}`}</Text>
+      {/* <Text>{`${weatherItems?.weather[0].description}`}</Text> */}
       <Image boxSize="150px" src={photo} />
     </Wrapper>
   );

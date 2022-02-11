@@ -17,11 +17,13 @@ export const Root = () => {
       .get(`${URL}${searchObject}`)
       .then((res) => {
         setApiItems(res.data);
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [searchObject]);
+
   return (
     <ChakraProvider theme={theme}>
       <Wrapper>
