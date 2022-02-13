@@ -3,7 +3,7 @@ export const btnConfig = [
   { name: "Cars", endpoint: "VEHICLE", color: "#ff0000" },
   { name: "Parkings", endpoint: "PARKING", color: "#ff0000" },
   { name: "Points of Interest", endpoint: "POI", color: "#ff0000" },
-  { name: "Airfields", endpoint: "AIRFIELDS", color: "#ff0000" },
+  // { name: "Airfields", endpoint: "AIRFIELDS", color: "#ff0000" },
   // { name: "All", endpoint: "POI,VEHICLE,PARKING", color: "#ff0000" },
 ];
 //marker pin colors config for every item
