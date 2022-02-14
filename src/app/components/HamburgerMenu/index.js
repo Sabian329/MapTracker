@@ -36,7 +36,7 @@ export const HamburgerMenu = ({
   activeId,
 }) => {
   const { isOpen, onToggle } = useDisclosure();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const themeStore = useSelector(selectTheme);
 
   const setEndpointResetId = (btn) => {
