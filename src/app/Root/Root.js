@@ -1,4 +1,4 @@
-import { ChakraProvider, useToast } from "@chakra-ui/react";
+import { ChakraProvider} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 import { MapWrapper } from "../components/MapWrapper";
@@ -12,7 +12,6 @@ export const Root = () => {
   const [apiItems, setApiItems] = useState([]);
   const [searchObject, setSearchObject] = useState("POI");
 
-  const toast = useToast();
 
   useEffect(() => {
     axios
