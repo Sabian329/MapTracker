@@ -12,14 +12,16 @@ import { HamburgerMenu } from "../HamburgerMenu";
 import { MainBox } from "../InfoBoxes/MainBox";
 import { MarkerItem } from "../MarkerItem";
 import { Wrapper } from "./styled";
-import { selectTheme } from "../../Redux/selectors";
+import { selectEndpoit, selectTheme } from "../../Redux/selectors";
 import { useSelector } from "react-redux";
 
-export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
+export const MapWrapper = ({ apiItems }) => {
   const [viewport, setViewport] = useState(mapInitial);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState("");
   const themeStore = useSelector(selectTheme);
+  const endpointStore = useSelector(selectEndpoit);
+
   const mapRef = useRef();
 
   // click on items list or cluster transfer to select point on map
@@ -38,24 +40,15 @@ export const MapWrapper = ({ apiItems, setSearchObject, searchObject }) => {
       {useMemo(
         () => (
           <HamburgerMenu
-            setSearchObject={setSearchObject}
             setIsMenuOpen={setIsMenuOpen}
             onSelectCity={onSelectCity}
             setActiveId={setActiveId}
             activeId={activeId}
             isMenuOpen={isMenuOpen}
             apiItems={apiItems}
-            searchObject={searchObject}
           />
         ),
-        [
-          isMenuOpen,
-          apiItems,
-          activeId,
-          searchObject,
-          onSelectCity,
-          setSearchObject,
-        ]
+        [isMenuOpen, apiItems, activeId, onSelectCity, endpointStore.searching]
       )}
 
       <ReactMapGL

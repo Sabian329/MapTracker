@@ -3,14 +3,11 @@ import { TriangleDownIcon, TriangleUpIcon, UpDownIcon } from "@chakra-ui/icons";
 
 import React from "react";
 import { Wrapper } from "./styled";
+import { useSelector } from "react-redux";
+import { selectEndpoit } from "../../Redux/selectors";
 
-export const SortButtons = ({
-  parameter,
-  direction,
-  sortBy,
-  searchObject,
-  isLoading,
-}) => {
+export const SortButtons = ({ parameter, direction, sortBy, isLoading }) => {
+  const endpointStore = useSelector(selectEndpoit);
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Wrapper>
@@ -40,7 +37,7 @@ export const SortButtons = ({
         >
           Name
         </Button>
-        {searchObject === "VEHICLE" && (
+        {endpointStore.searching === "VEHICLE" && (
           <>
             <Button
               rightIcon={

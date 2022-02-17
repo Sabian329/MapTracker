@@ -22,15 +22,14 @@ import { SwitchTheme } from "../SwitchTheme";
 import { btnConfig } from "../../constans/mapObjectsConfig";
 import { menuVariants } from "../../theme/animationsVariants";
 import { motion } from "framer-motion";
-import { selectTheme } from "../../Redux/selectors";
-import { useSelector } from "react-redux";
+import { selectEndpoit, selectTheme } from "../../Redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { switchEndpoint } from "../../Redux/slices/searchEndpoint";
 
 export const HamburgerMenu = ({
   isMenuOpen,
   setIsMenuOpen,
-  setSearchObject,
   apiItems,
-  searchObject,
   onSelectCity,
   setActiveId,
   activeId,
@@ -38,10 +37,12 @@ export const HamburgerMenu = ({
   const { isOpen, onToggle } = useDisclosure();
   const [isLoading, setIsLoading] = useState(true);
   const themeStore = useSelector(selectTheme);
+  const endpointStore = useSelector(selectEndpoit);
+  const dispath = useDispatch();
 
   const setEndpointResetId = (btn) => {
-    searchObject !== btn.endpoint && setIsLoading(true);
-    setSearchObject(btn.endpoint);
+    endpointStore.searching !== btn.endpoint && setIsLoading(true);
+    dispath(switchEndpoint(btn.endpoint));
     setActiveId("");
   };
   useEffect(() => {
@@ -90,7 +91,7 @@ export const HamburgerMenu = ({
                     >
                       {btn.name}
 
-                      {searchObject === btn.endpoint && (
+                      {endpointStore.searching === btn.endpoint && (
                         <CheckIcon color="green.500" />
                       )}
                     </Button>
@@ -103,7 +104,6 @@ export const HamburgerMenu = ({
           <ResutList
             isLoading={isLoading}
             activeId={activeId}
-            searchObject={searchObject}
             setActiveId={setActiveId}
             onSelectCity={onSelectCity}
             apiItems={apiItems}

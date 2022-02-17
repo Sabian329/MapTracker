@@ -34,7 +34,6 @@ export const AirfieldInfoBox = ({
       .get(`${URL}${address?.city}${apiKey}`)
       .then((res) => {
         seWeatherItems(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);

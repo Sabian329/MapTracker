@@ -8,7 +8,6 @@ export const ResutList = ({
   apiItems,
   onSelectCity,
   setActiveId,
-  searchObject,
   activeId,
   isLoading,
 }) => {
@@ -51,12 +50,7 @@ export const ResutList = ({
 
   return (
     <Wrapper>
-      <SortButtons
-        sortBy={sortBy}
-        searchObject={searchObject}
-        {...itemsState}
-        isLoading={isLoading}
-      />
+      <SortButtons sortBy={sortBy} {...itemsState} isLoading={isLoading} />
       {!isLoading && (
         <ItemsList>
           {itemsState.items.map((item, index) => (
