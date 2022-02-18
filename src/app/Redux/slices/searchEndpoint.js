@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const searchEndpointSlice = createSlice({
   name: "endpoint",
   initialState: {
-    searching: "POI",
+    searching: "AIRFIELDS",
   },
   reducers: {
     switchEndpoint(state, action) {
