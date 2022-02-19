@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 
 import { SortButtons } from "../SortButtons";
 import { Text } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { selectEndpoit } from "../../Redux/selectors";
 
 export const ResutList = ({
   apiItems,
@@ -11,6 +13,7 @@ export const ResutList = ({
   activeId,
   isLoading,
 }) => {
+  const endpointStore = useSelector(selectEndpoit);
   const [itemsState, setItemsState] = useState({
     items: apiItems,
     direction: false,
@@ -57,6 +60,9 @@ export const ResutList = ({
             <Item key={item.id} onClick={() => setItemActive(item)}>
               <Text>{index + 1}.</Text>
               <Text>{item.name}</Text>
+              {endpointStore.searching === "AIRFIELDS" && (
+                <Text>{item.address?.city}</Text>
+              )}
             </Item>
           ))}
         </ItemsList>

@@ -5,7 +5,13 @@ import {
   mapInitial,
   mapsStyle,
 } from "../../constans/apiMapConfig";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 
 import { HamburgerMenu } from "../HamburgerMenu";
@@ -29,11 +35,28 @@ export const MapWrapper = ({ apiItems }) => {
     setViewport({
       longitude,
       latitude,
-      zoom: 16,
+      zoom: 14,
       transitionDuration: "auto",
       transitionInterpolator: new FlyToInterpolator({ speed: 3 }),
     });
   }, []);
+  const onSelectCityInit = useCallback(({ longitude, latitude }) => {
+    setViewport({
+      longitude,
+      latitude,
+      zoom: 10,
+      transitionDuration: "auto",
+      transitionInterpolator: new FlyToInterpolator({ speed: 3 }),
+    });
+  }, []);
+
+  useEffect(() => {
+    apiItems.length &&
+      onSelectCityInit({
+        longitude: apiItems[0].location?.longitude,
+        latitude: apiItems[0].location?.latitude,
+      });
+  }, [apiItems, onSelectCityInit]);
 
   return (
     <Wrapper>
@@ -48,7 +71,7 @@ export const MapWrapper = ({ apiItems }) => {
             apiItems={apiItems}
           />
         ),
-        [isMenuOpen, apiItems, activeId, onSelectCity, endpointStore.searching]
+        [isMenuOpen, apiItems, activeId, onSelectCity, endpointStore.searching] // eslint-disable-line react-hooks/exhaustive-deps
       )}
 
       <ReactMapGL
@@ -74,6 +97,7 @@ export const MapWrapper = ({ apiItems }) => {
             <>
               {apiItems?.map((item, index) => (
                 <MarkerItem
+                  onSelectCity={onSelectCity}
                   key={index}
                   setActiveId={setActiveId}
                   activeId={activeId}

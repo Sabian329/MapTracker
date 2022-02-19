@@ -10,6 +10,7 @@ export const MarkerItem = ({
   setActiveId,
   activeId,
   id,
+  onSelectCity,
 }) => {
   const [isActive, setIsActive] = useState(false);
   useEffect(
@@ -18,6 +19,10 @@ export const MarkerItem = ({
   );
   const toggleMarker = () => {
     setActiveId(id);
+    onSelectCity({
+      longitude: location.longitude,
+      latitude: location.latitude,
+    });
   };
   return (
     <div onClick={() => toggleMarker()}>
